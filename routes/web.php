@@ -22,3 +22,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/test', function () {
   return view('test');
 });
+
+Route::get('/mailbox',  function() {
+  return view('mailbox');
+});
+
+Route::get('/compose',  function() {
+  return view('compose');
+});
+
+Route::get('/read',  function() {
+  return view('read');
+});
