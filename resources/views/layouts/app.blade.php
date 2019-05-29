@@ -228,16 +228,10 @@
     <!-- /.sidebar -->
   </aside>
 
-  @if(false)
   <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
             @yield('content')
     </div>
-    @else
-    <div class="content-wrapper">
-      asdf
-    </div>
-      @endif
 
 
     <footer class="main-footer">
