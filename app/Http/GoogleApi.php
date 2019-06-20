@@ -32,9 +32,9 @@ class GoogleApi
   public function __construct()
   {
     $this->client = $this->start([
-      'clientId' => '890877645480-2kpk90aje5j1jtksim26qcb16sajjh4r.apps.googleusercontent.com',
-      'secret' => 'oyOuGZ7tGeZa4W70fO1jtNcc',
-      'redirect' => 'http://localhost:8000/test'
+      'clientId' => env('GOOGLE_CLIENT_ID'),
+      'secret' => env('GOOGLE_CLIENT_SECRET'),
+      'redirect' => env('GOOGLE_REDIRECT_API')
     ]);
   }
 
