@@ -70,7 +70,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/test', function (Request $req) {
-  $google = new GoogleApi();
+  $google = new \App\Http\GoogleApi();
   if($req->code){
     $google->getAccessTokenWithAuthCode($req->code);
     return redirect('/home');
@@ -84,10 +84,7 @@ Route::get('/test', function (Request $req) {
 
 Route::get('/mailbox',  'MailBoxController@mailbox');
 
-Route::get('/compose',  function() {
-    
-  return view('compose');
-});
+Route::get('/compose',  'ComposeController@create');
 
 Route::post('/compose', 'ComposeController@compose');
 

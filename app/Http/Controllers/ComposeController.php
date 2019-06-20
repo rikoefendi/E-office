@@ -7,14 +7,10 @@ use Google_Service_Gmail_Message;
 
 class ComposeController extends Controller
 {
-    private $google;
-    private $service;
 
-    public function __construct()
-    {
-        $this->middleware('google');
-      $this->google = new \GoogleApi();
-      $this->service = new \Google_Service_Gmail($this->google->getClient());
+    public function create(){
+        if(!$this->isLoggedInGoogle()['login']) return view('api', ['redirect' => $this->isLoggedInGoogle()['redirect']]);
+        return view('compose');
     }
 
     public function compose(Request $request)

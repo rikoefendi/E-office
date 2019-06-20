@@ -15,11 +15,13 @@ class Mail
      */
     public function handle($request, Closure $next)
     {
-      $google = new \GoogleApi();
-
-      if($google->isAccessTokenExpired()){
-        return redirect($google->getAuthUrl());
-      }
-        return $next($request);
+      // dd(json_decode(session('access_api'), true));
+      // $google = new \App\Http\Controllers\GoogleApi();
+      // if($google->isAccessTokenExpired()){
+      //   return redirect($google->getAuthUrl());
+      // }
+      // // dd($google->getAccessToken());
+      // // $google->setAccessToken($this->google->getAccessToken());
+      //   return $next($request);
     }
 }

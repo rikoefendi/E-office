@@ -2,22 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\GoogleApi;
 use Illuminate\Http\Request;
 use PhpMimeMailParser\Parser;
+
+
 class MailBoxController extends Controller
 {
-    private $google;
-    private $service;
-
-    public function __construct()
-    {
-      $this->google = new \GoogleApi();
-      $this->service = new \Google_Service_Gmail($this->google->getClient());
-      $this->middleware('google');
-    }
 
     public function mailbox(Request $request)
     {
+      if(!$this->isLoggedInGoogle()['login']) return view('api', ['redirect' => $this->isLoggedInGoogle()['redirect']]);
+      // dd($this->google)
+      // session(['asdf' => 'asdf']);
         $opt = ['maxResults' => '10'];
         if($request->q){
             $opt['q'] = $request->q;
