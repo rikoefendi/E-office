@@ -85,9 +85,12 @@ Route::get('/test', function (Request $req) {
 Route::get('/mailbox',  'MailBoxController@mailbox');
 
 Route::get('/compose',  function() {
+    
   return view('compose');
 });
 
-Route::get('/read',  function() {
-  return view('read');
-});
+Route::post('/compose', 'ComposeController@compose');
+
+Route::get('/read/{id}',  'MailBoxController@show');
+
+Route::get('/read/{id}/download/{index}', 'MailBoxController@download');

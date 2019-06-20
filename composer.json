@@ -13,7 +13,9 @@
         "google/apiclient": "^2.2",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
-        "php-mime-mail-parser/php-mime-mail-parser": "^5.0"
+        "nesbot/carbon": "^2.18",
+        "php-mime-mail-parser/php-mime-mail-parser": "^5.0",
+        "swiftmailer/swiftmailer": "^6.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

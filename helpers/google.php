@@ -1,23 +1,23 @@
 <?php
 
 
-
 /**
  *
  */
+use Carbon\Carbon;
 class GoogleApi
 {
   private $scope = [
   Google_Service_Gmail::MAIL_GOOGLE_COM,
   Google_Service_Gmail::GMAIL_COMPOSE,
-  Google_Service_Gmail::GMAIL_INSERT,
-  Google_Service_Gmail::GMAIL_LABELS,
+  // Google_Service_Gmail::GMAIL_INSERT,
+  // Google_Service_Gmail::GMAIL_LABELS,
   // Google_Service_Gmail::GMAIL_METADATA,
   Google_Service_Gmail::GMAIL_MODIFY,
   Google_Service_Gmail::GMAIL_READONLY,
   Google_Service_Gmail::GMAIL_SEND,
-  Google_Service_Gmail::GMAIL_SETTINGS_BASIC,
-  Google_Service_Gmail::GMAIL_SETTINGS_SHARING,
+  // Google_Service_Gmail::GMAIL_SETTINGS_BASIC,
+  // Google_Service_Gmail::GMAIL_SETTINGS_SHARING,
   ];
 
   public $client;
@@ -62,6 +62,7 @@ class GoogleApi
     if (!file_exists($this->tokenPath)) {
               mkdir($this->tokenPath, 0700, true);
           }
+
     if(file_put_contents($this->tokenPath, json_encode($this->client->getAccessToken())));
 
     return $accessToken;
@@ -85,4 +86,18 @@ class GoogleApi
       return $this->client;
   }
 
+}
+
+function carbon($date = '')
+{
+    if(!$date) return Carbon::now();
+
+    return (new Carbon($date))->setTimeZone('Asia/Jakarta');
+}
+
+
+// dd(carbon('Thu, 30 May 2019 14:56:58 +0000 (UTC)')->diffForHumans());
+function payload($data)
+{
+    return $data->getPayload()->getHeaders();
 }
