@@ -29,6 +29,8 @@ class MailBoxController extends Controller
 
     public function show($id)
     {
+      if(!$this->isLoggedInGoogle()['login']) return view('api', ['redirect' => $this->isLoggedInGoogle()['redirect']]);
+
         $result = $this->get($id, ['format' => 'raw'])['raw'];
         $switched = str_replace(['-', '_'], ['+', '/'], $result);
         $decodedMessage = base64_decode($switched);
@@ -53,6 +55,7 @@ class MailBoxController extends Controller
 
     private function list($opt = [])
     {
+      if(!$this->isLoggedInGoogle()['login']) return view('api', ['redirect' => $this->isLoggedInGoogle()['redirect']]);
         $callback = [];
         $messages = [];
 
@@ -79,6 +82,7 @@ class MailBoxController extends Controller
 
     private function get($id, $opt = [])
     {
+
         return $this->service->users_messages->get('me', $id, $opt);
     }
 

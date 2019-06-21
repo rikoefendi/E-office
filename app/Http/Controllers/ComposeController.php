@@ -15,6 +15,7 @@ class ComposeController extends Controller
 
     public function compose(Request $request)
     {
+      if(!$this->isLoggedInGoogle()['login']) return view('api', ['redirect' => $this->isLoggedInGoogle()['redirect']]);
         try {
         $message = (new \Swift_Message('Wonderful Subject'))
           ->setSubject($request->subject)
