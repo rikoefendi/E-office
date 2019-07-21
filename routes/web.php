@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 
 use PhpMimeMailParser\Parser;
 Route::get('/', function (Request $req) {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
@@ -34,7 +34,7 @@ Route::get('/test', function (Request $req) {
   $google = new \App\Http\GoogleApi();
   if($req->code){
     $google->getAccessTokenWithAuthCode($req->code);
-    return redirect('/home');
+    return back();
   }
   if($google->isAccessTokenExpired()){
     return redirect($google->getAuthUrl());
@@ -48,7 +48,12 @@ Route::get('/mailbox',  'MailBoxController@mailbox');
 Route::get('/compose',  'ComposeController@create');
 
 Route::post('/compose', 'ComposeController@compose');
+Route::get('/forward/{id}', 'ComposeController@forward');
 
 Route::get('/read/{id}',  'MailBoxController@show');
 
 Route::get('/read/{id}/download/{index}', 'MailBoxController@download');
+Route::get('/mailbox/{id}/to-approval', 'MailBoxController@toApproval');
+Route::get('/approval', 'ApprovalController@index');
+Route::get('/approval/{id}', 'ApprovalController@show');
+Route::get('/approval/{id}/{state}', 'ApprovalController@changeStat');

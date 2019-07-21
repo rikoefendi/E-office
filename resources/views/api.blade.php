@@ -1,9 +1,18 @@
 @extends('layouts.app')
 @section('content')
+<section class="content-header">
+  <h1>
+    Login with account google
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li class="active">Sign</li>
+  </ol>
+</section>
 <section class="content">
   <div class="row">
     <div class="col-md-3">
-      <a href="compose.html" class="btn btn-primary btn-block margin-bottom">Compose</a>
+      <a href="/compose" class="btn btn-primary btn-block margin-bottom">Compose</a>
 
       <div class="box box-solid">
         <div class="box-header with-border">
@@ -18,8 +27,8 @@
           <ul class="nav nav-pills nav-stacked">
             <li><a href="/mailbox"><i class="fa fa-inbox"></i> Inbox </a></li>
             <li><a href="/mailbox?q=in:sent"><i class="fa fa-envelope-o"></i> Sent</a></li>
-            <li><a href="/mailbox?q=in:draft"><i class="fa fa-file-text-o"></i> Drafts</a></li>
             <li><a href="/mailbox?q=is:starred"><i class="fa fa-star-o"></i> Starred</a></li>
+            <li><a href="/approval"><i class="fa fa-star-o"></i> Approved</a></li>
           </ul>
         </div>
         <!-- /.box-body -->

@@ -1,6 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+<section class="content-header">
+  <h1>
+    Create User
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li class="">User</li>
+    <li class="active">Create</li>
+  </ol>
+</section>
 <section class="content">
   <div class="row">
     @if (session('status'))
@@ -21,10 +31,10 @@
         </div>
         <div class="box-body no-padding">
           <ul class="nav nav-pills nav-stacked">
-            <li><a href="/mailbox"><i class="fa fa-inbox"></i> Semua </a></li>
-            <li><a href="/mailbox?q=in:sent"><i class="fa fa-envelope-o"></i> Administrator</a></li>
-            <li><a href="/mailbox?q=in:draft"><i class="fa fa-file-text-o"></i> Sekretaris</a></li>
-            <li><a href="/mailbox?q=is:starred"><i class="fa fa-star-o"></i> Accepted</a></li>
+            <li><a href="/users"><i class="fa fa-inbox"></i> Semua </a></li>
+            <li><a href="/users?level=1"><i class="fa fa-envelope-o"></i> Administrator</a></li>
+            <li><a href="/users?level=2"><i class="fa fa-file-text-o"></i> Sekretaris</a></li>
+            <li><a href="/users?level=3"><i class="fa fa-star-o"></i> Accepted</a></li>
           </ul>
         </div>
         <!-- /.box-body -->

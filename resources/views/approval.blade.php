@@ -1,15 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<section class="content-header">
-  <h1>
-    Read Mail
-  </h1>
-  <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li class="">Mailbox</li>
-  </ol>
-</section>
 <!-- Main content -->
 <section class="content">
   <div class="row">
@@ -46,7 +37,7 @@
     <div class="col-md-9">
       <div class="box box-primary">
         <div class="box-header with-border">
-          <h3 class="box-title">{{$data['title']}}</h3>
+          <h3 class="box-title">Approval</h3>
 
           <!-- <div class="box-tools pull-right">
             <div class="has-feedback">
@@ -64,13 +55,38 @@
           <div class="table-responsive mailbox-messages">
             <table class="table table-hover table-striped">
               <tbody>
-                  @foreach($data['messages'] as $dat)
+                  @foreach($data as $data)
                       <tr>
-                        <td class=""><a href="/mailbox/{{$dat['id']}}/to-approval" title="Sampaikan ke atasan"><i class="fa fa-share text-white"></i></a></td>
-                        <td class="mailbox-name"><a href="/read/{{$dat['id']}}">{{trim(explode(" ",$dat['from'])[0], '"')}}</a></td>
-                        <td class="mailbox-subject">{!!substr($dat['subject'].' - '.$dat['snippet'], 0, 60)!!}...
+                          @if(Auth::user()->level == 2 || Auth::user()->level == 1)
+                              <td><a @if($data['status'] == 0 || $data['status'] == 2) href="/approval/{{$data['id']}}/approve" @endif><label for="" class="btn btn-primary">
+                                @if($data['status'] == 1)
+                                Approved
+                                @else
+                                Approve
+                                @endif
+                              </label></a></td>
+                              <td><a @if($data['status'] == 0 || $data['status'] == 1) href="/approval/{{$data['id']}}/decline" @endif><label for="" class="btn btn-danger">
+                                @if($data['status'] == 2)
+                                Declined
+                                @else
+                                Decline
+                                @endif
+                              </label></a></td>
+                          @elseif(Auth::user()->level == 3)
+                          <td>
+                            @if($data['status'] == 1)
+                              <label for="" class="btn btn-primary">Approve</label>
+                            @elseif($data['status'] == 2)
+                              <label for="" class="btn btn-danger">Declined</label>
+                            @else
+                            <label for="" class="btn btn-warning">Pending</label>
+                            @endif
+                            </td>
+                          @endif
+                        <td class="mailbox-name"><a href="/approval/{{$data['id']}}">{{$data['from']}}</a></td>
+                        <td class="mailbox-subject">{!!$data['subject']!!}
                         </td>
-                        <td class="mailbox-date">{{carbon($dat['date'])->diffForHumans()}}</td>
+                        <td class="mailbox-date">{{carbon($data['date'])->diffForHumans()}}</td>
                       </tr>
                 @endforeach
               </tbody>
@@ -82,8 +98,8 @@
         <!-- /.box-body -->
         <div class="box-footer no-padding">
           <div class="mailbox-controls">
-            <a href="{{$data['prevPage']}}" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></a>
-            <a href="{{$data['nextPage']}}" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></a>
+            <!-- <a href="{{$data['prevPage']}}" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></a>
+            <a href="{{$data['nextPage']}}" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></a> -->
           </div>
         </div>
       </div>

@@ -70,4 +70,21 @@ class GoogleApi
   public function getClient(){
       return $this->client;
   }
+
+  public function getAccessToken(){
+    return json_decode(session('access_api'), true);
+  }
+
+  public function isAccessTokenExpired(){
+    if(!$this->getAccessToken()) return true;
+    $this->client->setAccessToken($this->getAccessToken());
+    return $this->client->isAccessTokenExpired();
+  }
+
+  public function isLoggedInGoogle(){
+    if($this->isAccessTokenExpired()){
+      return ['login' => false, 'redirect' => $this->getAuthUrl()];
+    }
+    return ['login' => true];
+  }
 }

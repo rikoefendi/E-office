@@ -14,10 +14,14 @@ class UserController extends Controller
     $this->middleware('auth');
   }
 
-    public function index()
+    public function index(Request $request)
     {
       //get all users data with paginate except user is Authentication
-      $users = User::where('id', '!=', \Auth::user()->id)->paginate(10);
+      $users = User::where('id', '!=', \Auth::user()->id);
+      if($request->level){
+        $users->where('level', $request->level);
+      }
+      $users = $users->paginate(10);
       //return view with users data
       return view('user.index', compact('users'));
     }

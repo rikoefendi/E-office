@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Email;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,28 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+      $data['email'] = [];
+      $mail = Email::all('status');
+      $data['user'] = count(User::all('id'));
+      $pending = 0;
+      $approved = 0;
+      $declined = 0;
+      foreach ($mail as $stat) {
+        if($stat->status == 0){
+          $pending += 1;
+        }
+        if($stat->status == 1){
+          $approved += 1;
+        }
+        if($stat->status == 2){
+          $declined += 1;
+        }
+      }
+        $data['email'] = [
+          'declined' => $declined,
+          'approved' => $approved,
+          'pending' => $pending
+        ];
+        return view('home', $data);
     }
 }

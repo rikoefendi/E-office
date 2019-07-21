@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+@if (session('message'))
+    <div class="alert alert-success">
+        {{ session('message') }}
+    </div>
+@endif
 <!-- Content Header (Page header) -->
    <section class="content-header">
      <h1>
@@ -8,7 +13,7 @@
      </h1>
      <ol class="breadcrumb">
        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-       <li class="">Mailbox</li>
+       <li >Approval</li>
        <li class="active">Read</li>
      </ol>
    </section>
@@ -79,13 +84,36 @@
              </div>
              <!-- /.mailbox-read-info -->
              <div class="mailbox-controls with-border text-center">
-               <div class="btn-group">
-                 <a href="/compose?reply={{$parser->getAddresses('from')[0]['address']}}&threadId={{$threadId}}&subject={{$parser->getheader('subject')}}" class="btn btn-default btn-sm" data-toggle="tooltip" data-container="body" title="Reply">
-                   <i class="fa fa-reply"></i></a>
-                 <a href="/forward/{{$messageId}}" class="btn btn-default btn-sm" data-toggle="tooltip" data-container="body" title="Forward">
-                   <i class="fa fa-share"></i></a>
-               </div>
-               <!-- /.btn-group -->
+               @if(Auth::user()->level == 2 || Auth::user()->level == 1)
+                   <a @if($data['status'] == 0 || $data['status'] == 2) href="/approval/{{$data['id']}}/approve" @endif><label for="" class="btn btn-primary">
+                     @if($data['status'] == 1)
+                     Approved
+                     @else
+                     Approve
+                     @endif
+                   </label></a>
+                   <a @if($data['status'] == 0 || $data['status'] == 1) href="/approval/{{$data['id']}}/decline" @endif><label for="" class="btn btn-danger">
+                     @if($data['status'] == 2)
+                     Declined
+                     @else
+                     Decline
+                     @endif
+                   </label></a>
+               @elseif(Auth::user()->level == 3)
+                 @if($data['status'] == 1)
+                   <label for="" class="btn btn-primary">Approve</label>
+                 @elseif($data['status'] == 2)
+                   <label for="" class="btn btn-danger">Declined</label>
+                 @else
+                 <label for="" class="btn btn-warning">Pending</label>
+                 @endif
+                 <div class="btn-group">
+                   <a href="/compose?reply={{$parser->getAddresses('from')[0]['address']}}&subject={{$parser->getheader('subject')}}" class="btn btn-default btn-sm" data-toggle="tooltip" data-container="body" title="Reply">
+                     <i class="fa fa-reply"></i></a>
+                   <a href="/forward/{{$data['email_id']}}" class="btn btn-default btn-sm" data-toggle="tooltip" data-container="body" title="Forward">
+                     <i class="fa fa-share"></i></a>
+                 </div>
+               @endif
              </div>
              <!-- /.mailbox-controls -->
              <div class="mailbox-read-message">
@@ -119,16 +147,6 @@
                </div>
                <!-- /.box-footer -->
            @endif
-           <div class="box-footer">
-             <div class="pull-right">
-               <div class="btn-group">
-                 <a href="/compose?reply={{$parser->getAddresses('from')[0]['address']}}&threadId={{$threadId}}&subject={{$parser->getheader('subject')}}" class="btn btn-default btn-sm" data-toggle="tooltip" data-container="body" title="Reply">
-                   <i class="fa fa-reply"></i> Reply</a>
-                 <a href="/forward/{{$messageId}}" class="btn btn-default btn-sm" data-toggle="tooltip" data-container="body" title="Forward">
-                   <i class="fa fa-share"></i> Forward</a>
-               </div>
-             </div>
-           </div>
            <!-- /.box-footer -->
          </div>
          <!-- /. box -->
