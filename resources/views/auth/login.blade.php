@@ -26,6 +26,16 @@
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
+    @foreach($errors->all() as $error)
+        <div class="alert alert-danger">
+            {{ $error }}
+        </div>
+        @endforeach
+        @if(session('status'))
+        <div class="alert alert-success">
+            {{ @session('status') }}
+        </div>
+        @endif
   <div class="login-logo">
     <a href="#"><b>Admin</b>E-Office</a>
   </div>
@@ -38,20 +48,10 @@
       <div class="form-group @error('email') has-error @enderror">
         <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="E-Mail">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-        @error('email')
-            <span class="help-block" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-        @enderror
       </div>
       <div class="form-group @error('password') has-error @enderror">
         <input id="password" type="password" class="form-control" name="password" required autocomplete="current-password" placeholder="Password">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-        @error('password')
-            <span class="help-block" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-        @enderror
       </div>
       <div class="row">
         <div class="col-xs-8">

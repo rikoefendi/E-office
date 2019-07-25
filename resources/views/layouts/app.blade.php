@@ -48,7 +48,7 @@
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
+      <span class="logo-lg"><b>Admin</b> E-Office</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -75,14 +75,18 @@
                   @if(Auth::user()->level == 1)
                     Administrator
                   @elseif(Auth::user()->level == 2)
-                    Approval
-                  @elseif(Auth::user()->level == 3)
                     Sekretaris
+                  @elseif(Auth::user()->level == 3)
+                  Approval
+
                   @endif
                 </p>
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
+                  <div class="btn btn-default btn-flat">
+                    <a href="/user/{{Auth::user()->id}}/edit">Profil</a>
+                  </div>
                 <div class="pull-right">
                   <a class="btn btn-default btn-flat" href="{{ route('logout') }}"
                      onclick="event.preventDefault();
@@ -121,17 +125,19 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li class="active">
-          <a href="/home">Dashboard</a>
+          <a href="/home">Informasi</a>
           <a href="/mailbox">
             <i class="fa fa-envelope"></i> <span>Mailbox</span>
           </a>
           <a href="/compose">
             <i class="fa fa-envelope"></i> <span>Compose</span>
           </a>
+          @if(Auth::user()->level == 1)
           <a href="/users">
             <i class="fa fa-users"></i>
             <span>Users</span>
           </a>
+          @endif
         </li>
       </ul>
     </section>

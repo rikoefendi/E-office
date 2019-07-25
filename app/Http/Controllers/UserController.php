@@ -92,12 +92,11 @@ class UserController extends Controller
       $request->validate([
         'email' => 'required|email',
         'name' => 'required|min:8|max:30',
-        'level' => 'required|max:1',
-        'status' => 'required|max:1',
+        // 'level' => 'required|max:1',
+        // 'status' => 'required|max:1',
         // 'password' => 'required|confirmed|min:8',
         // 'avatar' => 'required|mimes:jpg,jpeg,png|max:1024'
       ]);
-
       //if validation success running code in bottom
 
       //get input only email,name,level,status return array
@@ -128,12 +127,11 @@ class UserController extends Controller
 
         //return back with message success
       //find user ro update by id
-      $user = User::findOrFail($request->id);
-      //store/update user to database
-      $user->update($inputs);
 
       }
-      return redirect('/users')->with('status', 'Berhasil merubah '.$request->name);
+      $user = User::findOrFail($request->id);
+      $user->update($inputs);
+      return back()->with('status', 'Berhasil merubah '.$request->name);
     }
 
     public function destroy($id)

@@ -6,11 +6,15 @@
     Dashboard
   </h1>
   <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li class="active">Dashboard</li>
+    <li class="active">Informasi</li>
   </ol>
 </section>
 <section class="content">
+  @if(session('status'))
+  <div class="alert alert-success">
+      {{ @session('status') }}
+  </div>
+  @endif
     <div class="row">
       <div class="col-lg-3 col-xs-6">
         <!-- small box -->
@@ -45,6 +49,7 @@
           <a href="/approval" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
         </div>
       </div>
+      @if(Auth::user()->level == 1)
       <div class="col-lg-3 col-xs-6">
         <!-- small box -->
         <div class="small-box bg-green">
@@ -56,6 +61,7 @@
           <a href="/users" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
         </div>
       </div>
+      @endif
     </div>
 </section>
 @endsection

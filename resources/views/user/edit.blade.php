@@ -6,7 +6,6 @@
     Edit User
   </h1>
   <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
     <li class="">User</li>
     <li class="active">Edit</li>
   </ol>
@@ -70,7 +69,7 @@
                           @enderror
                       </div>
                       <div class="form-group @error('level') has-error @enderror">
-                          <select class="form-control" name="level">
+                          <select class="form-control" name="level" @if($user->level != 1) disabled @endif>
                             <option value="">Level</option>
                             <option value="1" @if($user->level == 1) selected @endif>Administrator</option>
                             <option value="2" @if($user->level == 2) selected @endif>Sekretaris</option>
@@ -82,8 +81,8 @@
                               </span>
                           @enderror
                       </div>
-                      <div class="form-group @error('status') has-error @enderror">
-                          <select class="form-control" name="status">
+                      <div class="form-group @error('status') has-error @enderror" >
+                          <select class="form-control" name="status"  @if($user->level != 1) disabled @endif>
                             <option value="">Status</option>
                             <option value="1" @if($user->status == 1) selected @endif>Aktif</option>
                             <option value="2" @if($user->status == 2) selected @endif>Suspend</option>

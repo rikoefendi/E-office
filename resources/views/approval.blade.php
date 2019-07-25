@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+<section class="content-header">
+  <h1>
+    Read Mail
+  </h1>
+  <ol class="breadcrumb">
+    <li >Approval</li>
+  </ol>
+</section>
 <!-- Main content -->
 <section class="content">
   <div class="row">
